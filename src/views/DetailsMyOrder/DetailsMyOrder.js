@@ -412,7 +412,7 @@ const DetailsMyOrder = (props) => {
                     size="sm"
                     onClick={() => handleGoBack()}
                   >
-                    <i className="fa fa-arrow-left" />
+                    Voltar
                   </Button>
                   <span>Detalhe do pedido</span>
                   <div>

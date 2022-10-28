@@ -42,3 +42,18 @@
     text-align: center;
     border: solid 1px #f1f1f1;
 }
+.contentImageProdut {
+    position: relative;
+}
+.contentImageProdut .removerImage {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    animation: all 2s;
+}
+.contentImageProdut .removerImage:hover {
+    transform: scale(1.2)
+}

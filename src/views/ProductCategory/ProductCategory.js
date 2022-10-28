@@ -20,6 +20,13 @@ import {
   FormText,
 } from "reactstrap";
 
+import {
+  BsTrash,
+  BsPencilSquare,
+  BsZoomIn,
+  BsGripVertical,
+} from "react-icons/bs";
+
 import "./styles.css";
 import {
   getProductGroupCategory,
@@ -486,7 +493,7 @@ const ProductCategory = (props) => {
                   size="sm"
                   onClick={handleNewCategory}
                 >
-                  <i className="fa fa-plus" /> Nova Categoria
+                  Nova Categoria
                 </Button>
                 <Button
                   className="btn"
@@ -494,7 +501,7 @@ const ProductCategory = (props) => {
                   size="sm"
                   onClick={() => history.push({ pathname: "productNew" })}
                 >
-                  <i className="fa fa-plus" /> Novo Produto
+                  Novo Produto
                 </Button>
               </div>
             </CardHeader>
@@ -542,20 +549,18 @@ const ProductCategory = (props) => {
                           <Button
                             className="btn-round btn-icon"
                             color="danger"
-                            outline
                             size="sm"
                             onClick={() => handleSelectCategoy(item, "delete")}
                           >
-                            <i className="fa fa-trash" />
+                            <BsTrash />
                           </Button>
                           <Button
                             className="btn-round btn-icon"
                             color="info"
-                            outline
                             size="sm"
                             onClick={() => handleSelectCategoy(item, "edit")}
                           >
-                            <i className="fa fa-edit" />
+                            <BsPencilSquare />
                           </Button>
                         </div>
                       </td>
@@ -598,7 +603,7 @@ const ProductCategory = (props) => {
                   size="sm"
                   onClick={handleNewTypeAdditional}
                 >
-                  <i className="fa fa-plus" /> Novo tipo
+                  Mais adicionais
                 </Button>
               </div>
             </CardHeader>
@@ -644,29 +649,26 @@ const ProductCategory = (props) => {
                           <Button
                             className="btn-round btn-icon"
                             color="danger"
-                            outline
                             size="sm"
                             onClick={() =>
                               handleSelectedTypeAdditional(item, "delete")
                             }
                           >
-                            <i className="fa fa-trash" />
+                            <BsTrash />
                           </Button>
                           <Button
                             className="btn-round btn-icon"
                             color="info"
-                            outline
                             size="sm"
                             onClick={() =>
                               handleSelectedTypeAdditional(item, "edit")
                             }
                           >
-                            <i className="fa fa-edit" />
+                            <BsPencilSquare />
                           </Button>
                           <Button
                             className="btn-round btn-icon"
                             color="success"
-                            outline
                             size="sm"
                             onClick={() =>
                               handleSelectedTypeAdditional(
@@ -675,7 +677,7 @@ const ProductCategory = (props) => {
                               )
                             }
                           >
-                            <i className="fa fa-forward" />
+                            <BsZoomIn />
                           </Button>
                         </div>
                       </td>
@@ -737,7 +739,7 @@ const ProductCategory = (props) => {
                       )
                     }
                   >
-                    <i className="fa fa-plus" /> Novo
+                    Novo
                   </Button>
                 </div>
               </CardHeader>
@@ -754,13 +756,7 @@ const ProductCategory = (props) => {
                     {additional.map((item, idx) => (
                       <tr key={idx}>
                         <td>
-                          <i
-                            style={{
-                              paddingRight: 15,
-                              color: "#C6C6C6",
-                            }}
-                            className={"fa fa-chevron-right"}
-                          />{" "}
+                          <BsGripVertical />
                           <span>{item.description}</span>
                         </td>
                         <td style={{ textAlign: "right" }}>R$ {item.price}</td>
@@ -769,24 +765,22 @@ const ProductCategory = (props) => {
                             <Button
                               className="btn-round btn-icon"
                               color="danger"
-                              outline
                               size="sm"
                               onClick={() =>
                                 handleSelectedAdditional(item, "delete")
                               }
                             >
-                              <i className="fa fa-trash" />
+                              <BsTrash />
                             </Button>
                             <Button
                               className="btn-round btn-icon"
                               color="info"
-                              outline
                               size="sm"
                               onClick={() =>
                                 handleSelectedAdditional(item, "edit")
                               }
                             >
-                              <i className="fa fa-edit" />
+                              <BsPencilSquare />
                             </Button>
                           </div>
                         </td>

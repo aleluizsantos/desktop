@@ -20,6 +20,8 @@ import {
   Label,
 } from "reactstrap";
 
+import { BsTrash, BsPencilSquare, BsX } from "react-icons/bs";
+
 import { url } from "../../services/host";
 import { SET_MESSAGE } from "../../store/Actions/types";
 import {
@@ -253,12 +255,10 @@ const Product = () => {
                     </DropdownMenu>
                   </Dropdown>
                   <Button color="primary" onClick={handleProductPromotion}>
-                    <i className="fa fa-bookmark" aria-hidden="true" /> Produto
-                    em Promoção
+                    Produto em Promoção
                   </Button>
                   <Button color="info" onClick={goToAddNewProduct}>
-                    <i className="fa fa-plus-square" aria-hidden="true" /> Novo
-                    Produto
+                    Novo Produto
                   </Button>
                 </div>
                 {selectCategory.length > 0 ? (
@@ -268,12 +268,11 @@ const Product = () => {
                 )}
                 <div className="selectCategory">
                   {selectCategory.map((item) => (
-                    <span key={item.id}>
-                      <i
-                        className="fa fa-times"
-                        aria-hidden="true"
-                        onClick={() => handleRemoveSelectCategory(item)}
-                      />{" "}
+                    <span
+                      key={item.id}
+                      onClick={() => handleRemoveSelectCategory(item)}
+                    >
+                      <BsX />
                       {item.name}
                     </span>
                   ))}
@@ -344,20 +343,18 @@ const Product = () => {
                             <Button
                               className="btn-round btn-icon"
                               color="danger"
-                              outline
                               size="sm"
                               onClick={() => handleShowModal(item)}
                             >
-                              <i className="fa fa-trash" />
+                              <BsTrash />{" "}
                             </Button>
                             <Button
                               className="btn-round btn-icon"
                               color="success"
-                              outline
                               size="sm"
                               onClick={() => goToEditProduct(item)}
                             >
-                              <i className="fa fa-edit" />
+                              <BsPencilSquare />
                             </Button>
                           </div>
                         </td>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { TfiTag } from "react-icons/tfi";
 import { useHistory } from "react-router-dom";
 // reactstrap components
 import {
@@ -120,7 +121,6 @@ const MyOrders = () => {
                             alt={item.deliveryType}
                             className="imgTypeDelivery"
                           />
-                          {/* {item.deliveryType} */}
                         </td>
                         <td>{formatDateTime(item.dateTimeOrder)}</td>
                         <td
@@ -158,12 +158,11 @@ const MyOrders = () => {
                             <Button
                               className="btn-icon"
                               color="success"
-                              outline
                               size="md"
                               onClick={() => goToDetailsMyOrders(item)}
                               title="detalhes"
                             >
-                              <i className="fa fa-tags" />
+                              <TfiTag />
                             </Button>
                           </div>
                         </td>

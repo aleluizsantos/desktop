@@ -6,17 +6,10 @@ export const login = async (email, password) => {
   return await api
     .post("/auth/authenticate", { email, password })
     .then((response) => {
-      const {
-        user,
-        token,
-        openClose,
-        // totalPedidosProcess,
-        totalUsers,
-      } = response.data;
+      const { user, token, openClose, totalUsers } = response.data;
 
-      if (user.typeUser === "user") {
+      if (user.typeUser === "user")
         throw new Error("Usuário não tem permissão");
-      }
 
       localStorage.setItem("_accessAuthenticatedTokenpicanha&cia", token);
       localStorage.setItem("_activeUserpicanha&cia", JSON.stringify(user));

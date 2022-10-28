@@ -30,6 +30,9 @@ import { url } from "../../services/host";
 import imgMobile from "../../assets/img/mobile.png";
 import imgNoMobile from "../../assets/img/noMobile.png";
 import imgPlus from "../../assets/img/icoPlus.gif";
+import imgCamera from "../../assets/img/camera.png";
+import imgRemover from "../../assets/img/remover.png";
+
 import {
   getCategorys,
   getAdditional,
@@ -37,6 +40,15 @@ import {
   createProduct,
   updateProduct,
 } from "../../hooks";
+
+import {
+  BsTrash,
+  BsPencilSquare,
+  BsZoomIn,
+  BsGripVertical,
+  BsCartCheckFill,
+  BsFillCameraFill,
+} from "react-icons/bs";
 
 // Schema de validação de dados
 const schemaProduct = {
@@ -131,8 +143,6 @@ const ProductNew = (props) => {
       });
     })();
   }, []);
-
-  console.log(formState)
 
   // Atualização os dados do Formulário
   const handleChange = (event) => {
@@ -236,7 +246,9 @@ const ProductNew = (props) => {
         updateProduct(formState.values.id, data).then((resp) => {
           dispatch({
             type: SET_MESSAGE,
-            payload: resp.success ? "Seu produto foi atualizado com sucesso.": "Erro ao inserir",
+            payload: resp.success
+              ? "Seu produto foi atualizado com sucesso."
+              : "Erro ao inserir",
           });
           setIsloading(false);
           resp.success ?? history.goBack();
@@ -583,17 +595,19 @@ const ProductNew = (props) => {
                                     // className="avatar"
                                   />
                                 </object>
-                                <i
-                                  className="fa fa-times-circle close"
-                                  aria-hidden="true"
+                                <img
+                                  src={imgRemover}
+                                  alt="remover"
+                                  className="removerImage"
                                   onClick={() => handleRemoverImage()}
                                 />
                               </div>
                             ) : (
                               <label htmlFor="icon-button-file">
-                                <i
-                                  className="fa fa-camera fa-2x"
-                                  style={{ padding: 40 }}
+                                <img
+                                  src={imgCamera}
+                                  alt="icon"
+                                  style={{ height: 100 }}
                                 />
                               </label>
                             )}
@@ -672,10 +686,7 @@ const ProductNew = (props) => {
                                           cursor: "pointer",
                                         }}
                                       >
-                                        <i
-                                          style={{ color: "#B80F0A" }}
-                                          className="fa fa-trash"
-                                        />
+                                        <BsTrash />
                                       </td>
                                       <td>{item.description}</td>
                                       <td>{item.price}</td>
@@ -766,10 +777,11 @@ const ProductNew = (props) => {
                         textAlign: "center",
                         cursor: "pointer",
                         color: "#008000",
+                        fontSize: "20px",
                       }}
                     >
                       {valueDefaultAdditional.includes(item.id) && (
-                        <i className="fa fa-check" />
+                        <BsCartCheckFill />
                       )}
                     </td>
                     <td

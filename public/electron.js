@@ -74,7 +74,7 @@ ipcMain.on(IPCkey.openWinSettingConfig, (event, arg) => {
 
 ipcMain.handle(IPCkey.servicePrinterList, async () => {
   const webContents = childWindow.webContents;
-  const printers = await webContents.getPrinters();
+  const printers = await webContents.getPrintersAsync();
   return printers;
 });
 
