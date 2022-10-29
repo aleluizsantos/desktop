@@ -24,9 +24,10 @@ let indexBridge = {
   getDefaultPrinters: async () => getDefaultPrinters(),
   saveSettingPrinters: (setting) => saveSettingPrinters(setting),
   openSettingConfing: () => ipcRenderer.send(IPCkey.openWinSettingConfig),
+  checkNewOrder: () => console.log("ok...."),
 };
 
-contextBridge.exposeInMainWorld("indexBrindge", indexBridge);
+contextBridge.exposeInMainWorld("indexBridge", indexBridge);
 
 const listOrder = [
   {

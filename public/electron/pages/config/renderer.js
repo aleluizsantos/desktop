@@ -19,10 +19,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   const bntSalveConfig = document.getElementById("bnt-salveConfig");
 
   const { printerName, widthPage, silent, auto, preview } =
-    await window.indexBrindge.getDefaultPrinters();
+    await window.indexBridge.getDefaultPrinters();
 
   // Buscar no storage o audio padrão e o volume
-  const sound = await window.indexBrindge.getDefaultAudio();
+  const sound = await window.indexBridge.getDefaultAudio();
 
   printDefault.innerText = `Padrão: ${printerName}`;
   printSilent.checked = silent;
@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   volumeAudio.value = sound.volume * 100;
 
   // GET: Lista de todas as impressora do sistema do computador
-  const printers = await window.indexBrindge.servicePrinterList();
+  const printers = await window.indexBridge.servicePrinterList();
   // Criar um lista das impressora no Layout
   // eslint-disable-next-line array-callback-return
   printers.map((item, index) => {
@@ -102,8 +102,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       audio: selectAudioDefault,
     };
 
-    window.indexBrindge.saveDefaultAudio(dataSettingAudio);
-    window.indexBrindge.saveSettingPrinters(dataSettingPrinter);
+    window.indexBridge.saveDefaultAudio(dataSettingAudio);
+    window.indexBridge.saveSettingPrinters(dataSettingPrinter);
     window.top.close(); //Fechar a janela
   });
 });

@@ -21,8 +21,7 @@ export default function ConfigSystem() {
       });
   };
 
-  const handleOpenSettingConfig = () =>
-    window.indexBrindge.openSettingConfing();
+  const handleOpenSettingConfig = () => window.indexBridge.openSettingConfing();
 
   return (
     <div>
