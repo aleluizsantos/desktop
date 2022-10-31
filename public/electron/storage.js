@@ -8,6 +8,7 @@ const default_printers = {
   auto: true,
   preview: false,
 };
+
 const default_sound = {
   active: true,
   volume: 0.5,
