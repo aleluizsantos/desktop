@@ -62,10 +62,10 @@ function saveDefaultAudio(values) {
 }
 
 module.exports = {
-  getWinSetting: getWinSetting,
-  saveBounds: saveBounds,
-  getDefaultPrinters: getDefaultPrinters,
-  saveSettingPrinters: saveSettingPrinters,
-  getSoundActive: getSoundActive,
-  saveDefaultAudio: saveDefaultAudio,
+  getWinSetting,
+  saveBounds,
+  getDefaultPrinters,
+  saveSettingPrinters,
+  getSoundActive,
+  saveDefaultAudio,
 };
