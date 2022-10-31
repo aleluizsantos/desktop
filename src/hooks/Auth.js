@@ -5,7 +5,7 @@ import { authHeader } from "../services/authHeader";
 export const login = async (email, password) => {
   return await api
     .post("/auth/authenticate", { email, password })
-    .then((response) => {
+    .then(async (response) => {
       const { user, token, openClose, totalUsers } = response.data;
 
       if (user.typeUser === "user")

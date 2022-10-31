@@ -14,6 +14,7 @@ import {
   NEW_ORDERS,
 } from "./store/Actions/types";
 import { statusOpenClose } from "./store/Actions";
+import { checkNewOrder } from "./hooks";
 
 const history = createBrowserHistory();
 
@@ -58,6 +59,9 @@ const App = () => {
           payload: response.countUser,
         });
       });
+      await checkNewOrder().then(
+        (resp) => resp === 2 && history.push("/myorders")
+      );
     })();
   }, [dispatch]);
 

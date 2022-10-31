@@ -23,7 +23,7 @@ import {
 
 import "./styles.css";
 import { signIn } from "../../store/Actions";
-import { isAuthenticated } from "../../hooks";
+import { checkNewOrder, isAuthenticated } from "../../hooks";
 
 const Login = (props) => {
   const [isloading, setIsloading] = useState(false);
@@ -59,7 +59,7 @@ const Login = (props) => {
   // Caso o usuário já esteja conectado redirecionar para dashboard
   useEffect(() => {
     (() => {
-      isAuthenticated() && history.push("/dashboard");
+      if (isAuthenticated()) history.push("/dashboard");
     })();
   }, [history]);
 
@@ -69,8 +69,10 @@ const Login = (props) => {
     setIsloading(true);
     try {
       dispatch(signIn(formState.values.email, formState.values.password)).then(
-        () => {
-          history.push("/dashboard");
+        async () => {
+          await checkNewOrder().then((resp) =>
+            resp === 2 ? history.push("/myorders") : history.push("/dashboard")
+          );
         }
       );
     } catch (error) {

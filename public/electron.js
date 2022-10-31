@@ -5,6 +5,7 @@ const path = require("path");
 
 const { getWinSetting, saveBounds } = require("./electron/storage");
 const printCoupom = require("./electron/componets/printCoupom");
+const actionNewOrders = require("./electron/common/actionNewOrders");
 const iconApp = path.join(__dirname, "electron", "assets", "lesoftware.png");
 
 const isDev = !app.isPackaged;
@@ -18,7 +19,7 @@ function createWindow() {
     width: width,
     height: height,
     icon: iconApp,
-    // autoHideMenuBar: true,
+    autoHideMenuBar: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
@@ -34,7 +35,7 @@ function createWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
 
-  isDev && mainWindow.webContents.openDevTools();
+  // isDev && mainWindow.webContents.openDevTools();
 }
 
 function createChildWindow() {
@@ -80,4 +81,8 @@ ipcMain.handle(IPCkey.servicePrinterList, async () => {
 
 ipcMain.on(IPCkey.servicePrinterPrint, async (event, data) => {
   printCoupom(data);
+});
+
+ipcMain.handle(IPCkey.serviceCheckNewOrder, async (event, data) => {
+  return await actionNewOrders(data);
 });

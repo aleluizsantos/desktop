@@ -24,7 +24,8 @@ let indexBridge = {
   getDefaultPrinters: async () => getDefaultPrinters(),
   saveSettingPrinters: (setting) => saveSettingPrinters(setting),
   openSettingConfing: () => ipcRenderer.send(IPCkey.openWinSettingConfig),
-  checkNewOrder: () => console.log("ok...."),
+  checkNewOrder: (data) =>
+    ipcRenderer.invoke(IPCkey.serviceCheckNewOrder, data),
 };
 
 contextBridge.exposeInMainWorld("indexBridge", indexBridge);

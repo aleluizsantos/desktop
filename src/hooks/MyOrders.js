@@ -1,5 +1,6 @@
 import api from "../services/api";
 import { authHeader } from "../services/authHeader";
+import { isAuthenticated } from "./Auth";
 
 export const typeStatusMyOrders = {
   EM_ANASILE: 1,
@@ -28,9 +29,23 @@ export const getOrders = async (statusReq) => {
       },
     })
     .then((response) => {
-      console.log(response.data);
       return response.data;
     });
+};
+
+/**
+ * Checa se existe pedidos recebidos do tipo 'EM ANALISE'
+ * @returns {Array<object>} Contendo todos os pedidos em análise
+ */
+export const checkNewOrder = async () => {
+  if (isAuthenticated()) {
+    const newOrders = await getOrders(typeStatusMyOrders.EM_ANASILE);
+    const hasOrder = newOrders.length > 0 ? true : false;
+    if (hasOrder) {
+      const resp = await window.indexBridge.checkNewOrder(newOrders);
+      return resp;
+    }
+  }
 };
 
 /**

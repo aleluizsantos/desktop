@@ -74,7 +74,15 @@ const Dashboard = (props) => {
   const chartSaleWeek = {
     data: (canvas) => {
       return {
-        labels: ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
+        labels: [
+          "Segunda",
+          "Terça",
+          "Quarta",
+          "Quinta",
+          "Sexta",
+          "Sábado",
+          "Domingo",
+        ],
         datasets: [
           {
             label: "Venda Diária",
