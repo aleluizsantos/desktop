@@ -251,7 +251,7 @@ const Dashboard = (props) => {
                   <Col md="10" xs="9">
                     <div className="numbers">
                       <p className="card-category">Pedidos Recebidos</p>
-                      <CardTitle tag="p">{newOrders}</CardTitle>
+                      <CardTitle tag="p">{newOrders.length}</CardTitle>
                       <p />
                     </div>
                   </Col>

@@ -11,10 +11,8 @@ import {
   CLIENT_ONLINE,
   UPDATE,
   CLIENT_REGISTERED,
-  NEW_ORDERS,
 } from "./store/Actions/types";
-import { statusOpenClose } from "./store/Actions";
-import { checkNewOrder } from "./hooks";
+import { statusOpenClose, myOrders } from "./store/Actions";
 
 const history = createBrowserHistory();
 
@@ -24,6 +22,8 @@ const App = () => {
   useEffect(() => {
     (async () => {
       dispatch(statusOpenClose());
+      dispatch(myOrders()).then((resp) => actionNewOrder(resp));
+
       const socket = io(url, {
         transports: ["websocket"],
         jsonp: false,
@@ -47,23 +47,29 @@ const App = () => {
           payload: response.update,
         });
       });
-      socket.on("CreateOrder", (response) => {
-        dispatch({
-          type: NEW_ORDERS,
-          payload: response.CreateOrder,
-        });
-      });
+      // socket.on("CreateOrder", (response) => {
+      //   dispatch({
+      //     type: NEW_ORDERS,
+      //     payload: response.CreateOrder,
+      //   });
+      // });
       socket.on("ClientsRegistered", (response) => {
         dispatch({
           type: CLIENT_REGISTERED,
           payload: response.countUser,
         });
       });
-      await checkNewOrder().then(
-        (resp) => resp === 2 && history.push("/myorders")
-      );
     })();
   }, [dispatch]);
+
+  async function actionNewOrder(order) {
+    if (order.length > 0) {
+      // Disparar um janela para o usuário informando que existe pedido
+      // o usuario deve escolher 0=IMPRIMIR | 1=ABRIR APLICAÇÃO | 2=IR PARA PAINEL PEDIDO
+      const respDialog = await window.indexBridge.checkNewOrder(order);
+      respDialog === 2 && history.push("/myOrders");
+    }
+  }
 
   return (
     <Router history={history}>

@@ -41,14 +41,7 @@ import {
   updateProduct,
 } from "../../hooks";
 
-import {
-  BsTrash,
-  BsPencilSquare,
-  BsZoomIn,
-  BsGripVertical,
-  BsCartCheckFill,
-  BsFillCameraFill,
-} from "react-icons/bs";
+import { BsTrash, BsCartCheckFill } from "react-icons/bs";
 
 // Schema de validação de dados
 const schemaProduct = {

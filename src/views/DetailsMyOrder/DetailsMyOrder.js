@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 // reactstrap components
@@ -29,7 +29,11 @@ import {
 } from "../../hooks/MyOrders";
 import { getProductSearch } from "../../hooks/Product";
 import { addItemOrder, changeItemMyOrder } from "../../hooks/MyOrders";
-import { CLEAR_MESSAGE, SET_MESSAGE } from "../../store/Actions/types";
+import {
+  CLEAR_MESSAGE,
+  NEW_ORDERS,
+  SET_MESSAGE,
+} from "../../store/Actions/types";
 import { ModalView, SelectDropdown, PrintCoupom } from "../../components";
 
 import imgDelivery from "../../assets/img/delivery.png";
@@ -53,6 +57,7 @@ const DetailsMyOrder = (props) => {
   const history = useHistory();
   const { state } = useLocation();
   const dispatch = useDispatch();
+  const { newOrders } = useSelector((state) => state.Notificate);
   const [currentPorcent, setCurrentPorcent] = useState(0);
   const [descriptioStatus, setDescriptionStatus] = useState(null);
   const [itemsMyOrders, setItemsMyOrders] = useState([]);
@@ -116,10 +121,12 @@ const DetailsMyOrder = (props) => {
         setIsModalStateMyOrder(!isModalStateMyOrder);
     }
   }
+
   function handleModalRemoveItem(item) {
     setItemSelected(item);
     setIsModalRemoveItem(!isModalRemoveItem);
   }
+
   function handleModalItemProduct() {
     setamountItemAdd(1);
     setProductSearch();
@@ -131,6 +138,13 @@ const DetailsMyOrder = (props) => {
       if (changeAmount.isEdit) salveChangeItem();
 
       upDateStateMyOrders(myOrder.id).then((response) => {
+        // Retirar o pedido novo estado global
+        newOrders.length > 0 &&
+          dispatch({
+            type: NEW_ORDERS,
+            payload: newOrders.filter((item) => item.id !== myOrder.id),
+          });
+
         setMyOrder({
           ...myOrder,
           statusRequest_id: response.nextState,

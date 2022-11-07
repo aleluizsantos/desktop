@@ -1,14 +1,12 @@
             Bem vindo, ao produto do desenvolvido pela Lesoftware.
 
-Este é um software de domínio particular.
-
-Todo o conteúdo do “SOFTWARE” é dotado de direitos autorais, sendo de propriedade
-da LICENCIANTE … e do Autor …, ficando claro que qualquer cópia do “SOFTWARE” 
+Todo o conteúdo do SOFTWARE é dotado de direitos autorais, sendo de propriedade
+da LICENCIANTE Lesoftware, ficando claro que qualquer cópia do SOFTWARE 
 com finalidade comercial é punível pelas leis de direitos autorais em vigor. 
 O LICENCIADO não pode copiar, modificar, alugar, transmitir o conteúdo do 
-“SOFTWARE” por nenhum meio de telecomunicação existente ou que venha a ser 
-criado, bem como deixar o “SOFTWARE” disponível em qualquer tipo de 
-Bulletin Boards, ou outro meio de serviço on-line. 
+SOFTWARE por nenhum meio de telecomunicação existente ou que venha a ser 
+criado, bem como deixar o SOFTWARE disponível em qualquer tipo de Bulletin 
+Boards, ou outro meio de serviço on-line. 
 É vedada a cópia de qualquer conceito do sistema, assim como a execução de 
 engenharia reversa.
 

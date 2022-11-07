@@ -22,8 +22,8 @@ import {
 } from "reactstrap";
 
 import "./styles.css";
-import { signIn } from "../../store/Actions";
-import { checkNewOrder, isAuthenticated } from "../../hooks";
+import { myOrders, signIn } from "../../store/Actions";
+import { isAuthenticated } from "../../hooks";
 
 const Login = (props) => {
   const [isloading, setIsloading] = useState(false);
@@ -69,10 +69,9 @@ const Login = (props) => {
     setIsloading(true);
     try {
       dispatch(signIn(formState.values.email, formState.values.password)).then(
-        async () => {
-          await checkNewOrder().then((resp) =>
-            resp === 2 ? history.push("/myorders") : history.push("/dashboard")
-          );
+        () => {
+          dispatch(myOrders()).then((resp) => actionNewOrder(resp));
+          history.push("/dashboard");
         }
       );
     } catch (error) {
@@ -80,6 +79,17 @@ const Login = (props) => {
       alert("erro");
     }
   };
+
+  async function actionNewOrder(order) {
+    if (order.length > 0) {
+      // Disparar um janela para o usuário informando que existe pedido
+      // o usuario deve escolher 0=IMPRIMIR | 1=ABRIR APLICAÇÃO | 2=IR PARA PAINEL PEDIDO
+      const respDialog = await window.indexBridge.checkNewOrder(order);
+      respDialog === 2 ? history.push("/myOrders") : history.push("/dashboard");
+    } else {
+      history.push("/dashboard");
+    }
+  }
 
   const handleChange = (event) => {
     event.persist();

@@ -1,12 +1,7 @@
 import { OPEN_CLOSE, SET_MESSAGE, NEW_ORDERS, CONFIG_SYSTEM } from "./types";
 
-import { typeStatusMyOrders } from "../../hooks/MyOrders";
-import {
-  getOpenClose,
-  setOpenClose,
-  getOrders,
-  getConfigSystem,
-} from "../../hooks";
+import { checkNewOrder } from "../../hooks/MyOrders";
+import { getOpenClose, setOpenClose, getConfigSystem } from "../../hooks";
 
 export const configSystem = () => (dispatch) => {
   return getConfigSystem().then((data) => {
@@ -60,21 +55,11 @@ export const upgradeOpenClose = () => (dispatch) => {
   );
 };
 
-export const myOrders = () => (dispatch) => {
-  return getOrders(typeStatusMyOrders.ACTIVE).then(
-    (data) => {
-      dispatch({
-        type: NEW_ORDERS,
-        payload: data.length,
-      });
-    },
-    (error) => {
-      const message = error.message || error.toString();
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-    }
-  );
+export const myOrders = () => async (dispatch) => {
+  const newOrder = await checkNewOrder();
+  dispatch({
+    type: NEW_ORDERS,
+    payload: newOrder,
+  });
+  return newOrder;
 };

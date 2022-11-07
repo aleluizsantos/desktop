@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { TfiTag } from "react-icons/tfi";
+import { useSelector } from "react-redux";
+import { TfiTag, TfiPrinter } from "react-icons/tfi";
 import { useHistory } from "react-router-dom";
 // reactstrap components
 import {
@@ -21,29 +21,31 @@ import imgStore from "../../assets/img/store.png";
 import imgOrderEmpty from "../../assets/img/orderEmpty.png";
 
 import { formatDateTime } from "../../hooks/format";
-import { typeStatusMyOrders, getOrders } from "../../hooks/MyOrders";
-// import { NEW_ORDERS } from "../../store/Actions/types";
+import { getOrders, typeStatusMyOrders } from "../../hooks/MyOrders";
 
 const MyOrders = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const [myOrders, setMyOrders] = useState([]);
-  const [isloading, setIsloading] = useState(true);
-  const [typeStatus, setTypeStatus] = useState(typeStatusMyOrders.ACTIVE);
+  const [isloading, setIsloading] = useState(false);
   const { newOrders } = useSelector((state) => state.Notificate);
 
   useEffect(() => {
     (() => {
-      getOrders(typeStatus)
-        .then((response) => {
-          setMyOrders(response);
-          setIsloading(false);
-        })
-        .catch((error) => {
-          alert("Opss!!! ocorreu algum erro na comunição com o servidor.");
-        });
+      newOrders.length > 0 ? setMyOrders(newOrders) : listMyOrders();
     })();
-  }, [typeStatus, newOrders, dispatch]);
+  }, [newOrders]);
+
+  function listMyOrders(status = typeStatusMyOrders.ACTIVE) {
+    setIsloading(true);
+    getOrders(status)
+      .then((response) => {
+        setMyOrders(response);
+        setIsloading(false);
+      })
+      .catch((error) => {
+        alert("Opss!!! ocorreu algum erro na comunição com o servidor.");
+      });
+  }
 
   function goToDetailsMyOrders(order) {
     history.push({
@@ -53,7 +55,13 @@ const MyOrders = () => {
   }
 
   function handleSelectStatus(value) {
-    setTypeStatus(value);
+    listMyOrders(value);
+  }
+
+  function printCoupom(data) {
+    // converter o objeto em um array
+    const arrayData = [data];
+    window.indexBridge.servicePrintCoupom(arrayData);
   }
 
   return (
@@ -157,8 +165,19 @@ const MyOrders = () => {
                           <div className="groupButton">
                             <Button
                               className="btn-icon"
-                              color="success"
-                              size="md"
+                              outline
+                              color="default"
+                              size="sm"
+                              onClick={() => printCoupom(item)}
+                              title="Imprimir Cupom"
+                            >
+                              <TfiPrinter />
+                            </Button>
+                            <Button
+                              className="btn-icon"
+                              color="default"
+                              outline
+                              size="sm"
                               onClick={() => goToDetailsMyOrders(item)}
                               title="detalhes"
                             >

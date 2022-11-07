@@ -35,16 +35,17 @@ export const getOrders = async (statusReq) => {
 
 /**
  * Checa se existe pedidos recebidos do tipo 'EM ANALISE'
- * @returns {Array<object>} Contendo todos os pedidos em análise
+ * @returns {object} Contendo todos os pedidos em análise e o
  */
 export const checkNewOrder = async () => {
-  if (isAuthenticated()) {
-    const newOrders = await getOrders(typeStatusMyOrders.EM_ANASILE);
-    const hasOrder = newOrders.length > 0 ? true : false;
-    if (hasOrder) {
-      const resp = await window.indexBridge.checkNewOrder(newOrders);
-      return resp;
+  try {
+    if (isAuthenticated()) {
+      const newOrders = await getOrders(typeStatusMyOrders.EM_ANASILE);
+      return newOrders;
     }
+    return [];
+  } catch (error) {
+    return;
   }
 };
 
@@ -67,6 +68,7 @@ export const getItemsMyOrders = async (idMyOrder) => {
  */
 export const upDateStateMyOrders = async (idMyOrder) => {
   const { Authorization } = authHeader();
+
   return await api
     .put(
       `request/${idMyOrder}`,
