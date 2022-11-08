@@ -58,9 +58,14 @@ const MyOrders = () => {
     listMyOrders(value);
   }
 
-  function printCoupom(data) {
-    // converter o objeto em um array
-    const arrayData = [data];
+  async function printCoupom(data) {
+    const arrayData = {
+      data: [data],
+      configPrint: { copies: 1 },
+      sound: false,
+      dialogMessage: true,
+    };
+
     window.indexBridge.servicePrintCoupom(arrayData);
   }
 

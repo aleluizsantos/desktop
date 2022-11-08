@@ -25,8 +25,7 @@ let indexBridge = {
   openSettingConfing: () => ipcRenderer.send(IPCkey.openWinSettingConfig),
   checkNewOrder: (data) =>
     ipcRenderer.invoke(IPCkey.serviceCheckNewOrder, data),
-  servicePrintCoupom: (data) => console.log(data),
-  // ipcRenderer.send(IPCkey.servicePrinterPrint, data),
+  servicePrintCoupom: (data) =>
+    ipcRenderer.send(IPCkey.servicePrinterPrint, data),
 };
-
 contextBridge.exposeInMainWorld("indexBridge", indexBridge);

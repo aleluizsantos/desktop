@@ -11,8 +11,10 @@ eventEmitter.defaultMaxListeners = 35;
  * @param {Array<object>} data Array de objeto contendo os pedidos
  * @return {Function} PosPrinter
  */
-function printCoupom(data) {
+function printCoupom(dataPrint) {
   const { printerName, widthPage, silent, preview } = getDefaultPrinters();
+  const { data = [], configPrint = {}, sound = true } = dataPrint;
+
   const options = {
     preview: preview, // Preview in window or print
     width: widthPage, //  width of content body
@@ -21,6 +23,7 @@ function printCoupom(data) {
     printerName: printerName, // printerName: string, check it at webContent.getPrinters()
     timeOutPerLine: 5000,
     silent: silent,
+    ...configPrint,
   };
 
   data.map(async (order) => {
@@ -28,7 +31,7 @@ function printCoupom(data) {
     if (printerName && widthPage && layoutCoupom) {
       PosPrinter.print(layoutCoupom, options)
         .then(() => {
-          soundAlert();
+          sound && soundAlert();
         })
         .catch((error) => {
           throw new Error(error);

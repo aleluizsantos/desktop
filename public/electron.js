@@ -1,7 +1,10 @@
 /* eslint-disable no-useless-escape */
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const IPCkey = require("./electron/common/constants");
 const path = require("path");
+
+// remover a mensagem Passthrough is not supported, GL is disabled, ANGLE is
+app.disableHardwareAcceleration();
 
 const { getWinSetting, saveBounds } = require("./electron/storage");
 const printCoupom = require("./electron/componets/printCoupom");
@@ -41,7 +44,7 @@ function createWindow() {
 function createChildWindow() {
   childWindow = new BrowserWindow({
     width: 850,
-    height: 700,
+    height: 900,
     icon: iconApp,
     modal: true,
     show: false,
@@ -80,7 +83,24 @@ ipcMain.handle(IPCkey.servicePrinterList, async () => {
 });
 
 ipcMain.on(IPCkey.servicePrinterPrint, async (event, data) => {
-  printCoupom(data);
+  const window = BrowserWindow.getFocusedWindow();
+  const { dialogMessage, configPrint } = data;
+  if (dialogMessage) {
+    const respDialog = dialog.showMessageBoxSync(window, {
+      title: "O que deseja fazer?",
+      message: "Impressão de cupom & visualização.",
+      detail: "Você pode imprimir seu cupom ou simplesmente visualizar",
+      buttons: ["Imprimir", "Visualizar"],
+      type: "question",
+    });
+
+    const coupomPrint = {
+      ...data,
+      configPrint: { ...configPrint, preview: true },
+    };
+
+    respDialog === 0 ? printCoupom(data) : printCoupom(coupomPrint);
+  }
 });
 
 ipcMain.handle(IPCkey.serviceCheckNewOrder, async (event, data) => {
